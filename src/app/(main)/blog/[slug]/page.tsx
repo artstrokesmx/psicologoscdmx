@@ -14,6 +14,7 @@ import HowToSection from '@/components/blog/HowToDo';
 import FaqSection from '@/components/blog/FaqSection';
 
 import {getLocalBusinessSchema,getWebSiteSchema,getBreadcrumbSchema,getBlogPostingSchema} from '@/components/comunes/GeneradorDeSchema';
+import BotonesCompartir from '@/components/Sociales/BotonesCompartir';
 
 
 // 1. GENERATE STATIC PARAMS (Obligatorio para GitHub Pages)
@@ -188,9 +189,10 @@ const blogPostingSchema = getBlogPostingSchema(post, resolvedParams.slug);
             })}
           </span>
         </div>
+        <div className='flex justify-center gap-3'><p className='text-sm'>Autor: </p><span className='text-sm'>{post.author?.name}</span></div>
       </div>
         </header>
-
+            <div><BotonesCompartir title={post.title} /></div>
         <div className="prose prose-blue max-w-none text-blue-950">
           <PortableText value={post.body} components={components} />
         </div>
@@ -203,6 +205,7 @@ const blogPostingSchema = getBlogPostingSchema(post, resolvedParams.slug);
         )}
         {/* FAQs con el fallback de array vacío para evitar errores de tipo */}
         <FaqSection faqs={post.faqs || []} />
+        <BotonesCompartir title={post.title} />
       </article>
     </div>
   );
