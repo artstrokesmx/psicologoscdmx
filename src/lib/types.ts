@@ -190,10 +190,24 @@ export interface BlogPost {
 export interface BlogPostListItem {
   _id: string;
   title: string;
-  slug: string; // string simple, no objeto
+  slug: string;
   summary: string;
   publishedAt: string;
-  mainImage?: SanityImage;
+  mainImage: {
+    alt?: string;
+    asset: {
+      _id: string;
+      url: string;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+          aspectRatio: number;
+        };
+        lqip: string;
+      };
+    };
+  };
   readingTime?: number;
   tags?: string[];
   category?: string;
@@ -252,4 +266,15 @@ export interface BlogPostDetail {
   tags?: string[];
   readingTime?: number;
   wordCount: number;
+}
+
+export interface RelatedPost {
+  title: string;
+  slug: string;
+  mainImage?: {
+    asset?: {
+      url: string;
+    };
+  };
+  summary?: string;
 }

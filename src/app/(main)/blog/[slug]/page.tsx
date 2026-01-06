@@ -15,6 +15,8 @@ import FaqSection from '@/components/blog/FaqSection';
 
 import {getLocalBusinessSchema,getWebSiteSchema,getBreadcrumbSchema,getBlogPostingSchema} from '@/components/comunes/GeneradorDeSchema';
 import BotonesCompartir from '@/components/Sociales/BotonesCompartir';
+import { getRelatedPosts } from '@/lib/sanity';
+import PostRelacionados from '@/components/blog/PostRelacionados';
 
 
 // 1. GENERATE STATIC PARAMS (Obligatorio para GitHub Pages)
@@ -120,6 +122,12 @@ const blogPostingSchema = getBlogPostingSchema(post, resolvedParams.slug);
       }))
     } : undefined;
 
+    const relatedPosts = await getRelatedPosts(
+      slug, 
+      post.category || '', 
+      post.tags || []
+    );
+
   // Configuración de estilos para el contenido de Sanity
   const components = {
   types: {
@@ -206,6 +214,9 @@ const blogPostingSchema = getBlogPostingSchema(post, resolvedParams.slug);
         {/* FAQs con el fallback de array vacío para evitar errores de tipo */}
         <FaqSection faqs={post.faqs || []} />
         <BotonesCompartir title={post.title} />
+
+        {/* Inyección de los relacionados */}
+        <PostRelacionados posts={relatedPosts} />
       </article>
     </div>
   );

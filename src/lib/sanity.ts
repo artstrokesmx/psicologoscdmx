@@ -245,9 +245,10 @@ export async function getRelatedPosts(
   tags: string[] = []
 ): Promise<BlogPostListItem[]> {
   const query = groq`
-    *[_type == "blogPost" && slug.current != $currentSlug && 
-      (category == $category || tags match $tags)] | 
-      order(publishedAt desc) [0...3] {
+    *[_type == "blogPost" && slug.current != $currentSlug] | order(
+      (category == $category || count((tags[][@ in $tags])) > 0) desc, 
+      publishedAt desc
+    ) [0...3] {
       _id,
       title,
       "slug": slug.current,
