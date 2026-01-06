@@ -1,0 +1,24 @@
+// src/app/robots.ts
+import { MetadataRoute } from 'next';
+import { CONFIG_DEL_SITIO } from '@/lib/constantes';
+
+// Forzamos que se genere como archivo estático durante el build
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: [
+        '/private/', 
+        '/api/',      // Por si llegaras a tener rutas de servidor
+        '/test/',     // Pruebas internas
+        '/gracias',   // Página de éxito de contacto
+      ],
+    },
+    // Es vital que esta URL sea absoluta y apunte a tu sitemap
+    sitemap: `${CONFIG_DEL_SITIO.url}/sitemap.xml`,
+  };
+}
