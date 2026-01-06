@@ -14,7 +14,6 @@ import HowToSection from '@/components/blog/HowToDo';
 import FaqSection from '@/components/blog/FaqSection';
 
 import {getLocalBusinessSchema,getWebSiteSchema,getBreadcrumbSchema,getBlogPostingSchema} from '@/components/comunes/GeneradorDeSchema';
-import {CONFIG_DEL_SITIO} from '@/lib/constantes';
 
 
 // 1. GENERATE STATIC PARAMS (Obligatorio para GitHub Pages)

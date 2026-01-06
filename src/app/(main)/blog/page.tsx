@@ -18,7 +18,7 @@ export default async function BlogListPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
           <article key={post._id} className="border rounded-lg overflow-hidden shadow-hover transition-shadow bg-white flex flex-col">
-            <div className="p-6 flex flex-col flex-grow">
+            <div className="p-6 flex flex-col grow">
               <h2 className="text-2xl font-semibold mb-3 text-gray-800">
                 {post.title}
               </h2>
