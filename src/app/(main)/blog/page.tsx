@@ -34,6 +34,12 @@ export default async function BlogListPage() {
                 </Link>
               </div>
             </div>
+            <div className='hidden'>
+              <Link
+                href={'/consultorio/page.tsx'}
+                className='hidden'
+                >Consultorio</Link>
+            </div>
           </article>
         ))}
       </div>
