@@ -14,26 +14,26 @@ export default function FaqSection({ faqs }: FaqSectionProps) {
   if (!faqs || faqs.length === 0) return null;
 
   // 1. Generamos el objeto JSON-LD para Google
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map((faq) => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer,
-      },
-    })),
-  };
+  // const jsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "FAQPage",
+  //   "mainEntity": faqs.map((faq) => ({
+  //     "@type": "Question",
+  //     "name": faq.question,
+  //     "acceptedAnswer": {
+  //       "@type": "Answer",
+  //       "text": faq.answer,
+  //     },
+  //   })),
+  // };
 
   return (
     <section className="my-12 border-t pt-8">
       {/* Script inyectado para SEO (Invisible para el usuario) */}
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      /> */}
 
       {/* UI Visible para el usuario */}
       <h2 className="text-3xl font-bold mb-6 text-gray-800">Preguntas Frecuentes</h2>
