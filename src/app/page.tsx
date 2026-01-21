@@ -14,6 +14,8 @@ interface Post {
   publishedAt: string;
 }
 
+export const revalidate = 0; // Fuerza a que no haya caché en la compilación
+
 export default async function HomePage() {
   
   // 1. Cargar datos del blog (limitamos a 3 para mostrar en la portada)

@@ -3,6 +3,8 @@ import { getBlogPosts } from '@/lib/sanity';
 import Link from 'next/link';
 import type { BlogPostListItem } from '@/lib/types';
 
+export const revalidate = 0; // Fuerza a que no haya caché en la compilación
+
 export const metadata = {
   title: 'Blog de Psicología | Artículos y Consejos',
   description: 'Explora artículos sobre salud mental, bienestar y terapia escrita por expertos.',

@@ -4,9 +4,9 @@ import type { BlogPostListItem, BlogPostDetail } from '@/lib/types';
 // 1. Inicialización del cliente
 export const sanityClient = createClient({
   projectId: '4hvlxjly',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  dataset: 'production', //process.env.NEXT_PUBLIC_SANITY_DATASET!,
   apiVersion: '2024-01-01',
-  useCdn: process.env.NODE_ENV === 'production', // Solo CDN en producción
+  useCdn: false //process.env.NODE_ENV === 'production', // Solo CDN en producción
 });
 
 // 2. Función para obtener la lista de todos los posts
