@@ -4,7 +4,7 @@ export const CONFIG_DEL_SITIO = {
     name: "Consultorio de Psicología | Arturo Miranda",
     description: "Psicólogo en CDMX y en Coyoacán especializado en psicoterapia para adultos, adolescentes y terapia en pareja.",
     url: "https://artstrokesmx.github.io/psicologoscdmx",
-    logo: "https://artstrokesmx.github.io/psicologoscdmx/images/logo.png",
+    logo: "https://artstrokesmx.github.io/psicologoscdmx/logonew.svg",
     phone: "+525548549863",
     priceRange: "$$",
     medicalSpecialty: "Psychology",
