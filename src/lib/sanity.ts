@@ -225,29 +225,23 @@ export async function getPostBySlug(slug: string): Promise<BlogPostDetail | null
   return post || null;
 }
 
-// 4. Función auxiliar para obtener los slugs (para generateStaticParams)
-export async function getAllBlogSlugs(): Promise<Array<{ slug: string; _updatedAt: string }>> {
+// 4. Función auxiliar para obtener los slugs (tipada correctamente)
+export async function getAllBlogSlugs(): Promise<Array<{ slug: string }>> {
   const query = groq`
-    *[_type == "blogPost"] {
-      "slug": slug.current,
-      _updatedAt
+    *[_type == "blogPost" && defined(slug.current)] {
+      "slug": slug.current
     }
   `;
   
-  const slugs = await sanityClient.fetch(query);
-  return slugs.map((item: { slug: string }) => ({ slug: item.slug }));
+  // Especificamos el tipo en el fetch para mayor seguridad
+  const slugs = await sanityClient.fetch<Array<{ slug: string }>>(query);
+  
+  if (!slugs) return [];
+
+  return slugs.map((item) => ({
+    slug: item.slug,
+  }));
 }
-
-
-// export async function getAllBlogSlugs() {
-//   const query = groq`*[_type == "blogPost"] { "slug": slug.current }`;
-//   const slugs = await sanityClient.fetch(query);
-//   if (!slugs) return [];
-//   // Importante: Next.js espera que los objetos coincidan con los params de la ruta
-//   return slugs.map((item: any) => ({ slug: item.slug }));
-// }
-
-// 5. Función para obtener posts relacionados (opcional)
 export async function getRelatedPosts(
   currentSlug: string, 
   category: string, 
