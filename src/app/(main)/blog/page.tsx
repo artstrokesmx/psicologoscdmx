@@ -3,7 +3,7 @@ import { getBlogPosts } from '@/lib/sanity';
 import Link from 'next/link';
 import type { BlogPostListItem } from '@/lib/types';
 
-export const revalidate = 0; // Fuerza a que no haya caché en la compilación
+//export const revalidate = 0; // Fuerza a que no haya caché en la compilación
 export const dynamic = 'force-static';
 
 export const metadata = {
