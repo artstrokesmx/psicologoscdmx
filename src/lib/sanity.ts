@@ -225,22 +225,20 @@ export async function getPostBySlug(slug: string): Promise<BlogPostDetail | null
   return post || null;
 }
 
-// 4. Función auxiliar para obtener los slugs (tipada correctamente)
-export async function getAllBlogSlugs(): Promise<Array<{ slug: string }>> {
+// 4. Función auxiliar para obtener los slugs (Ahora con fecha para el sitemap)
+export async function getAllBlogSlugs(): Promise<Array<{ slug: string; _updatedAt: string }>> {
   const query = groq`
     *[_type == "blogPost" && defined(slug.current)] {
-      "slug": slug.current
+      "slug": slug.current,
+      _updatedAt
     }
   `;
   
-  // Especificamos el tipo en el fetch para mayor seguridad
-  const slugs = await sanityClient.fetch<Array<{ slug: string }>>(query);
+  const slugs = await sanityClient.fetch<Array<{ slug: string; _updatedAt: string }>>(query);
   
   if (!slugs) return [];
 
-  return slugs.map((item) => ({
-    slug: item.slug,
-  }));
+  return slugs; // Ya viene con el formato correcto [{ slug: "...", _updatedAt: "..." }]
 }
 export async function getRelatedPosts(
   currentSlug: string, 
