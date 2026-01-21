@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/logonew.svg",
+        url: "logonew.svg",
         type: "image/svg+xml",
       },
     ],
