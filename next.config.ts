@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  trailingSlash: true, // ESTO es lo que evita los 404 en GitHub Pages
   
   reactCompiler: true,
 };
