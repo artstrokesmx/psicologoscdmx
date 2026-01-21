@@ -15,6 +15,7 @@ interface Post {
 }
 
 export const revalidate = 0; // Fuerza a que no haya caché en la compilación
+export const dynamic = 'force-static';
 
 export default async function HomePage() {
   
