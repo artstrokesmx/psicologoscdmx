@@ -4,7 +4,7 @@ import type { BlogPostListItem, BlogPostDetail } from '@/lib/types';
 // 1. Inicialización del cliente
 export const sanityClient = createClient({
   projectId: '4hvlxjly',
-  dataset: 'production', //process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  dataset:  process.env.NEXT_PUBLIC_SANITY_DATASET!, //'production',
   apiVersion: '2024-01-01',
   useCdn: false //process.env.NODE_ENV === 'production', // Solo CDN en producción
 });
