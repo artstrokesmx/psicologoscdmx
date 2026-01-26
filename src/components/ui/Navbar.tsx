@@ -40,7 +40,7 @@ const Navbar = () => {
               href="/consultorio" 
               className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 hover:shadow-md transition"
             >
-              Agendar Cita
+              Agendar Cita ya
             </Link>
           </div>
 
