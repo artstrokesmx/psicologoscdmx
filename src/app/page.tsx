@@ -39,7 +39,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col space-x-4 space-y-1 justify-center md:flex-row md:space-y-0">
               <Link 
-                href="/contacto" 
+                href="https://wa.me/525548549863?text=Hola,%20quiero%20%20más%20información%20de%20terapia" 
                 className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 shadow-lg"
               >
                 Agenda tu Primera Sesión

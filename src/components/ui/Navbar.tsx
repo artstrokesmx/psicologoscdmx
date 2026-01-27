@@ -11,7 +11,7 @@ const Navbar = () => {
     { name: 'Servicios', href: '/servicios' },
     { name: 'Blog', href: '/blog' },
     // { name: 'Cursos', href: '/cursos' },
-    { name: 'Consultorio', href: '/consultorio' },
+    { name: 'Contacto', href: '/contacto' },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link 
-              href="/consultorio" 
+              href="https://wa.me/525548549863?text=Hola,%20quiero%20%20más%20información%20de%20terapia" 
               className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 hover:shadow-md transition"
             >
               Agendar Cita ya

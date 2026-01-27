@@ -50,6 +50,7 @@ return {
     openGraph: {
       title: ogTitle,
       description: ogDescription,
+      url: canonicalUrl,
       type: 'article',
       publishedTime: post.publishedAt,
       ...(post.updatedAt && { modifiedTime: post.updatedAt }),
@@ -65,6 +66,9 @@ return {
           alt: post.mainImage.alt || '',
         }
       ] : [],
+    },
+    other:{
+      "fb:app_id": "1793839234687499"
     },
     ...(post.canonicalUrl && {
       alternates: {
