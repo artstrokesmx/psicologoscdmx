@@ -39,41 +39,67 @@ export async function generateMetadata({ params }: { params: Promise <{ slug: st
   const title = post.metaTitle || post.title;
   const description = post.metaDescription || post.summary || '';
   const canonicalUrl = `https://artstrokesmx.github.io/psicologoscdmx/blog/${slug}`;
+  const ogImage = post.mainImage?.asset?.url || 'https://artstrokesmx.github.io/psicologoscdmx/logonew.svg';
   const ogTitle = post.ogTitle || post.title;
   const ogDescription = post.ogDescription || post.metaDescription || post.summary || '';
 
 return {
     title: `${title} | Psicólogo Arturo`,
     description,
-    keywords: post.metaKeywords,
+    keywords: post.metaKeywords || '', //post.metaKeywords?.join(', ') || '',
+    metadataBase: new URL('https://artstrokesmx.github.io'),
     openGraph: {
-      title: ogTitle,
-      description: ogDescription,
+      title: post.ogTitle || title,
+      description: post.ogDescription || description,
       url: canonicalUrl,
       type: 'article',
       publishedTime: post.publishedAt,
-      ...(post.updatedAt && { modifiedTime: post.updatedAt }),
-      ...(post.author?.name && { authors: [post.author.name] }),
-      ...(post.tags && { tags: post.tags }),
-      images: post.mainImage?.asset?.url ? [
-        {
-          url: post.mainImage.asset.url,
-          ...(post.mainImage.asset.metadata?.dimensions && {
-            width: post.mainImage.asset.metadata.dimensions.width,
-            height: post.mainImage.asset.metadata.dimensions.height,
-          }),
-          alt: post.mainImage.alt || '',
-        }
-      ] : [],
+      //...(post.updatedAt && { modifiedTime: post.updatedAt }),
+      //...(post.author?.name && { authors: [post.author.name] }),
+      //...(post.tags && { tags: post.tags }),
+      modifiedTime: post.updatedAt || post.publishedAt,
+      authors: post.author?.name ? [post.author.name] : ['Psic. Arturo Miranda'],
+      tags: post.tags || [],
+      //images: post.mainImage?.asset?.url ? [
+      //  {
+      //    url: post.mainImage.asset.url,
+      //    ...(post.mainImage.asset.metadata?.dimensions && {
+      //      width: post.mainImage.asset.metadata.dimensions.width,
+      //      height: post.mainImage.asset.metadata.dimensions.height,
+      //    }),
+      //    alt: post.mainImage.alt || '',
+      //  }
+      //] : [],
+      images: [{
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: post.mainImage?.alt || title,
+      }],
     },
-    facebook: {
-      appId: '1793839234687499',
-      },
-    ...(post.canonicalUrl && {
-      alternates: {
-        canonical: canonicalUrl,
-      },
-    }),
+    twitter: {
+      card: 'summary_large_image',
+      title: post.ogTitle || title,
+      description: post.ogDescription || description,
+      images: [ogImage],
+    },
+    //facebook: {
+    //  appId: '1793839234687499',
+    //  },
+    //...(post.canonicalUrl && {
+    //  alternates: {
+    //    canonical: canonicalUrl,
+    //  },
+    //}),
+    other: {
+      'fb:app_id': '1793839234687499',
+      'article:published_time': post.publishedAt,
+      ...(post.updatedAt && { 'article:modified_time': post.updatedAt }),
+      ...(post.author?.name && { 'article:author': post.author.name }),
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
   };
 }
 
@@ -82,8 +108,13 @@ export default async function BlogPostPage({ params }: { params: Promise <{ slug
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-  const post: BlogPostDetail | null = await getPostBySlug(slug);
-
+//  const post: BlogPostDetail | null = await getPostBySlug(slug);
+/////////////////////////////////////////////
+ const post = await getPostBySlug(slug);
+    console.log('Post completo:', post);
+    console.log('Autor:', post?.author);
+    console.log('Tags:', post?.tags);
+///////////////////////////////////////////////
   if (!post){ notFound();}
 // 1. Datos para el Schema de BlogPosting (Artículo)
     // Dentro de BlogPostPage en src/app/(main)/blog/[slug]/page.tsx

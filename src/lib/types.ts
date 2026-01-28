@@ -249,6 +249,12 @@ export interface BlogPostDetail {
     };
     alt?: string;
   };
+  ogImage?: {
+    asset: {
+      url: string;
+    };
+    alt?: string;
+  };
   // Campos SEO básicos
   metaDescription?: string;
   metaTitle?: string;

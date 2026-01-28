@@ -245,11 +245,15 @@ export async function getRelatedPosts(
   category: string, 
   tags: string[] = []
 ): Promise<BlogPostListItem[]> {
+
+  const tagFilter = tags.length > 0 
+    ? `|| count((tags[])[@ in $tags]) > 0`
+    : '';
+
   const query = groq`
-    *[_type == "blogPost" && slug.current != $currentSlug] | order(
-      (category == $category || count((tags[][@ in $tags])) > 0) desc, 
-      publishedAt desc
-    ) [0...3] {
+   *[_type == "blogPost" && slug.current != $currentSlug && 
+      (category == $category ${tagFilter})
+    ] | order(publishedAt desc) [0...3] {
       _id,
       title,
       "slug": slug.current,
@@ -277,6 +281,6 @@ export async function getRelatedPosts(
   return await sanityClient.fetch(query, { 
     currentSlug, 
     category, 
-    tags: tags.length > 0 ? tags.join('|') : '.*' 
+    tags//: tags.length > 0 ? tags.join('|') : '.*' 
   });
 }
