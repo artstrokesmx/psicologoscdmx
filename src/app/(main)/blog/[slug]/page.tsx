@@ -7,15 +7,14 @@ import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import type { Metadata } from 'next';
 import type { BlogPostDetail} from '@/lib/types';
+import { getRelatedPosts } from '@/lib/sanity';
 
 import SanityImage from '@/components/comunes/SanityImage';
 import SchemaMarkup from '@/components/comunes/SchemaMarkup';
 import HowToSection from '@/components/blog/HowToDo';
 import FaqSection from '@/components/blog/FaqSection';
-
 import {getLocalBusinessSchema,getWebSiteSchema,getBreadcrumbSchema,getBlogPostingSchema} from '@/components/comunes/GeneradorDeSchema';
 import BotonesCompartir from '@/components/Sociales/BotonesCompartir';
-import { getRelatedPosts } from '@/lib/sanity';
 import PostRelacionados from '@/components/blog/PostRelacionados';
 
 
@@ -67,9 +66,9 @@ return {
         }
       ] : [],
     },
-    other:{
-      'fb:app_id': '1793839234687499',
-    },
+    facebook: {
+      appId: '1793839234687499',
+      },
     ...(post.canonicalUrl && {
       alternates: {
         canonical: canonicalUrl,
