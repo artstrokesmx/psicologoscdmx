@@ -109,13 +109,13 @@ export default async function BlogPostPage({ params }: { params: Promise <{ slug
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-//  const post: BlogPostDetail | null = await getPostBySlug(slug);
-/////////////////////////////////////////////
- const post = await getPostBySlug(slug);
-    console.log('Post completo:', post);
-    console.log('Autor:', post?.author);
-    console.log('Tags:', post?.tags);
-///////////////////////////////////////////////
+  const post: BlogPostDetail | null = await getPostBySlug(slug);
+// /////////////////////////////////////////////
+//  const post = await getPostBySlug(slug);
+//     console.log('Post completo:', post);
+//     console.log('Autor:', post?.author);
+//     console.log('Tags:', post?.tags);
+// ///////////////////////////////////////////////
   if (!post){ notFound();}
 // 1. Datos para el Schema de BlogPosting (Artículo)
     // Dentro de BlogPostPage en src/app/(main)/blog/[slug]/page.tsx
