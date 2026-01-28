@@ -24,83 +24,84 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-// 2. METADATA DINÁMICA
-export async function generateMetadata({ params }: { params: Promise <{ slug: string }>  }): Promise<Metadata> {
+// 2. GENERATE METADATA (Dinámico por post)
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
   const post = await getPostBySlug(slug);
-  if (!post)  {
-  return {
-    title: `Post no encontrado `,
-    description: 'La publicación que buscas no se encuentra.',
-  };
-}
+  
+  if (!post) {
+    return {
+      title: 'Post no encontrado',
+      description: 'La publicación que buscas no se encuentra.',
+    };
+  }
 
   const title = post.metaTitle || post.title;
   const description = post.metaDescription || post.summary || '';
   const canonicalUrl = `https://artstrokesmx.github.io/psicologoscdmx/blog/${slug}`;
   const ogImage = post.mainImage?.asset?.url || 'https://artstrokesmx.github.io/psicologoscdmx/logonew.svg';
-  const ogTitle = post.ogTitle || post.title;
-  const ogDescription = post.ogDescription || post.metaDescription || post.summary || '';
+  const imageAlt = post.mainImage?.alt || title;
 
-return {
+  // Metadatos básicos que Next.js maneja bien
+  const baseMetadata: Metadata = {
     title: `${title} | Psicólogo Arturo`,
     description,
-    keywords: post.metaKeywords || '', //post.metaKeywords?.join(', ') || '',
     metadataBase: new URL('https://artstrokesmx.github.io'),
-    openGraph: {
-      title: post.ogTitle || title,
-      description: post.ogDescription || description,
-      url: canonicalUrl,
-      type: 'article',
-      publishedTime: post.publishedAt,
-      //...(post.updatedAt && { modifiedTime: post.updatedAt }),
-      //...(post.author?.name && { authors: [post.author.name] }),
-      //...(post.tags && { tags: post.tags }),
-      modifiedTime: post.updatedAt || post.publishedAt,
-      authors: post.author?.name ? [post.author.name] : ['Psic. Arturo Miranda'],
-      tags: post.tags || [],
-      //images: post.mainImage?.asset?.url ? [
-      //  {
-      //    url: post.mainImage.asset.url,
-      //    ...(post.mainImage.asset.metadata?.dimensions && {
-      //      width: post.mainImage.asset.metadata.dimensions.width,
-      //      height: post.mainImage.asset.metadata.dimensions.height,
-      //    }),
-      //    alt: post.mainImage.alt || '',
-      //  }
-      //] : [],
-      images: [{
-        url: ogImage,
-        width: 1200,
-        height: 630,
-        alt: post.mainImage?.alt || title,
-      }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.ogTitle || title,
-      description: post.ogDescription || description,
-      images: [ogImage],
-    },
-    //facebook: {
-    //  appId: '1793839234687499',
-    //  },
-    //...(post.canonicalUrl && {
-    //  alternates: {
-    //    canonical: canonicalUrl,
-    //  },
-    //}),
-    other: {
-      'fb:app_id': '1793839234687499',
-      'article:published_time': post.publishedAt,
-      ...(post.updatedAt && { 'article:modified_time': post.updatedAt }),
-      ...(post.author?.name && { 'article:author': post.author.name }),
-    },
     alternates: {
       canonical: canonicalUrl,
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
+
+  // Aquí viene la MAGIA: Generamos TODAS las metaetiquetas manualmente
+  // Usamos 'other' para definir cada una explícitamente
+  baseMetadata.other = {
+    // ========== OPEN GRAPH (Facebook, LinkedIn) ==========
+    // Propiedades básicas REQUERIDAS
+    'og:title': title,
+    'og:description': description,
+    'og:url': canonicalUrl,
+    'og:type': 'article',
+    'og:locale': 'es_MX',
+    'og:site_name': 'Consultorio de Psicología | Arturo Miranda',
+    
+    // Propiedades del artículo
+    'article:published_time': post.publishedAt,
+    ...(post.updatedAt && { 'article:modified_time': post.updatedAt }),
+    ...(post.author?.name && { 'article:author': post.author.name }),
+    ...(post.tags && { 'article:tag': post.tags.join(', ') }),
+    'article:section': post.category || 'Psicología',
+    
+    // Imagen Open Graph (REQUERIDA)
+    'og:image': ogImage,
+    'og:image:width': '1200',
+    'og:image:height': '630',
+    'og:image:alt': imageAlt,
+    'og:image:type': 'image/webp',
+    
+    // Facebook App ID (con property, no name)
+    'fb:app_id': '1793839234687499',
+    
+    // ========== TWITTER CARD ==========
+    // IMPORTANTE: Twitter usa 'name', NO 'property'
+    'twitter:card': 'summary_large_image',
+    'twitter:title': title,
+    'twitter:description': description,
+    'twitter:image': ogImage,
+    'twitter:image:alt': imageAlt,
+    //'twitter:site': '@psicologoarturo', // Cambia esto por tu usuario real
+    //'twitter:creator': '@psicologoarturo', // Cambia esto
+    
+    // ========== OTROS ==========
+    'author': post.author?.name || 'Psic. Arturo Miranda',
+  };
+
+  return baseMetadata;
 }
 
 // 3. COMPONENTE DE PÁGINA
