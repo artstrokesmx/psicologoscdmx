@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    "fb:app_id": "1793839234687499"
+    'fb:app_id': '1793839234687499',
   },
 };
 
