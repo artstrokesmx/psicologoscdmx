@@ -6,7 +6,7 @@ export default async function ServiciosPage() {
         <main className="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md">
             <h1 className="text-4xl font-bold text-center mb-12 text-blue-900">Nuestros Servicios de Psicoterapia</h1>
             <p className="text-lg text-gray-700 mb-2">
-              Ofrecemos una variedad de servicios diseñados para ayudarte a alcanzar tu bienestar emocional y mental. Ya sea que estés lidiando con ansiedad, depresión, estrés o busques desarrollo personal, estamos aquí para apoyarte.
+              Nuestras diferentes terapias están diseñadas para ayudarte a alcanzar tu bienestar emocional y mental. Ya sea que estés lidiando con ansiedad, depresión, estrés o busques desarrollo personal, estamos aquí para apoyarte.
             </p>
             <section className="mb-12">
               <div className="container mx-auto px-4 ">
