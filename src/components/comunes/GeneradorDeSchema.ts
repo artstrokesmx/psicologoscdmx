@@ -77,10 +77,13 @@ export const getBreadcrumbSchema = (items: { name: string; item: string }[]) => 
 
 export const getBlogPostingSchema = (post: BlogPostDetail, slug: string) => {
   const postUrl = `${BASE_ID}/blog/${slug}`;
+
   const categoryConfig = CATEGORY_MAP[post.category || ''] || { 
     genre: ['Psychology'], 
     section: 'Mental Health' 
   };
+
+  const finalSection = post.schemaCategory || categoryConfig?.section || 'HealthTopic';
 
   return{
   "@context": "https://schema.org",
@@ -92,8 +95,8 @@ export const getBlogPostingSchema = (post: BlogPostDetail, slug: string) => {
   },
   "headline": post.metaTitle || post.title,
   "description": post.metaDescription || post.summary,
-  "articleSection": categoryConfig.section,
-  "articleGenre": categoryConfig.genre,
+  "articleSection": finalSection,
+  "articleGenre": categoryConfig?.genre || ['Psychology'],
   "typicalAgeRange": "18-60", // Público adulto
     "countryOfOrigin": {
       "@type": "Country",
@@ -122,7 +125,7 @@ export const getBlogPostingSchema = (post: BlogPostDetail, slug: string) => {
       "url": CONFIG_DEL_SITIO.logo
     }
   },
-  "keywords": post.tags?.join(", "),
+  "keywords": post.metaKeywords || post.tags?.join(", "),
   // "articleSection": post.category,
   "wordCount": post.wordCount,
   "timeRequired": `PT${post.readingTime || 5}M`,

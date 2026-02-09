@@ -227,15 +227,17 @@ export interface BlogPostDetail {
   body: SanityBody;
   faqs?: FAQ[];
   howTo?:{
-  name: string;
-  description?: string;
-    totalTime?: string;
-    estimatedCost?: {
-      currency: string;
-      value: number;
-    };
-    steps: HowToStep[];
+    name: string;
+    description?: string;
+      totalTime?: string;
+      estimatedCost?: {
+        currency: string;
+        value: number;
+      };
+      steps: HowToStep[];
   }
+  schemaCategory?: string;
+  metaRobots?: string;
   mainImage?: {
     asset: {
       _id: string;
@@ -248,6 +250,9 @@ export interface BlogPostDetail {
       };
     };
     alt?: string;
+    caption?: string;
+    authorName?: string;
+    licenseUrl?: string;
   };
   ogImage?: {
     asset: {
