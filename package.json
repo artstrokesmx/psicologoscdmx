@@ -14,10 +14,10 @@
     "@sanity/image-url": "^2.0.2",
     "groq": "^4.21.1",
     "lucide-react": "^0.562.0",
-    "next": "^16.1.6",
-    "next-sanity": "^12.1.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "next": "16.1.6",
+    "next-sanity": "12.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
