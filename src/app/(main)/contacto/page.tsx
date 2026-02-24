@@ -26,6 +26,9 @@ export default function ContactoPage() {
                 <p className="font-bold text-gray-900">Teléfono / WhatsApp:</p>
                 <p className="text-gray-600">{CONFIG_DEL_SITIO.phone}</p>
               </div>
+              <div className="aspect-video w-full">
+                <iframe className='w-full h-112.5 border-0' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.555216156151!2d-99.16985389999999!3d19.3450976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ffe71a095c83%3A0xc36809b91289578c!2sAv.%20Miguel%20%C3%81ngel%20de%20Quevedo%20499%2C%20Romero%20de%20Terreros%2C%20Coyoac%C3%A1n%2C%2004310%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1771967307082!5m2!1ses!2smx" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </div>
             </div>
           </div>
 

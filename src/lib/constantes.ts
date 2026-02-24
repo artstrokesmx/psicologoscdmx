@@ -15,21 +15,21 @@ export const CONFIG_DEL_SITIO = {
     },
     address:{
         "@type": "PostalAddress",
-        "streetAddress": "Aguayo 3, Col. Del Carmen, Alcaldía Coyoacán",
+        "streetAddress": "Miguel Ángel de Quevedo 499 int 302, Col. Romero de Terreros, Alcaldía Coyoacán",
         "addressCountry": "MX",
         "addressRegion": "Ciudad de México",
         "addressLocality": "CDMX",
-        "postalCode": "04100"
+        "postalCode": "04310"
       },
     geo:{
         "@type": "GeoCoordinates",
-        "latitude": 19.35049,
-        "longitude": -99.16266
+        "latitude": 19.34531018477834, 
+        "longitude": -99.16984853564975
     },
     openingHoursSpecification: [
             {
                 "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
                 "opens": "09:00",
                 "closes": "21:00"
             }
