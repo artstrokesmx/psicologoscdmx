@@ -1,9 +1,40 @@
 // Importamos la función para obtener posts (la usaremos para mostrar 3 posts destacados)
 import { getBlogPosts } from '@/lib/sanity';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import SchemaMarkup from '@/components/comunes/SchemaMarkup';
+import { getLocalBusinessSchema, getWebSiteSchema, getBreadcrumbSchema, getFAQSchema } from '@/components/comunes/GeneradorDeSchema';
 
-// Componente para la Tarjeta de Previsualización (Aún no existe, la crearemos después)
-// import PostPreviewCard from '@/components/blog/PostPreviewCard'; 
+export const metadata: Metadata = {
+  title: 'Psicólogo en Coyoacán, CDMX | Terapia para Ansiedad y Pareja',
+  description: 'Psic. Arturo Miranda, especialista en ansiedad, depresión y terapia de pareja en Coyoacán. Agenda online.',
+  alternates: {
+    canonical: 'https://artstrokesmx.github.io/psicologoscdmx/',
+  },
+  openGraph: {
+    title: 'Psicólogo en Coyoacán, CDMX | Terapia para Ansiedad y Pareja',
+    description: 'Psic. Arturo Miranda, especialista en ansiedad, depresión y terapia de pareja en Coyoacán.',
+    url: 'https://artstrokesmx.github.io/psicologoscdmx/',
+    siteName: 'Consultorio de Psicología | Arturo Miranda',
+    images: [
+      {
+        url: 'https://artstrokesmx.github.io/psicologoscdmx/logonew.svg',
+        width: 800,
+        height: 600,
+        alt: 'Logo Psicólogo Arturo Miranda',
+      },
+    ],
+    locale: 'es_MX',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Psicólogo en Coyoacán, CDMX | Terapia para Ansiedad y Pareja',
+    description: 'Psic. Arturo Miranda, especialista en ansiedad, depresión y terapia de pareja en Coyoacán.',
+    images: ['https://artstrokesmx.github.io/psicologoscdmx/logonew.svg'],
+  },
+};
+
 
 // Tipado básico para los posts (idealmente vendría de '@/lib/types.ts')
 interface Post {
@@ -24,7 +55,36 @@ export default async function HomePage() {
   const allPosts: Post[] = await getBlogPosts();
   const featuredPosts = allPosts.slice(0, 3); // Tomamos los 3 más recientes
 
+  const faqs = [
+    {
+      question: "¿Tengo que estar muy mal para ir a terapia?",
+      answer: "No, la terapia no es solo para personas que están pasando por una crisis. Muchas personas van a terapia para mejorar su bienestar emocional, aprender habilidades de afrontamiento, o simplemente para tener un espacio seguro donde hablar de sus pensamientos y sentimientos."
+    },
+    {
+      question: "¿Cuánto tiempo dura la terapia?",
+      answer: "La duración de la terapia varía según las necesidades individuales. Algunas personas pueden beneficiarse de unas pocas sesiones, mientras que otras pueden necesitar un compromiso a largo plazo. Lo importante es que te sientas cómodo y que la terapia esté ayudando a alcanzar tus objetivos."
+    },
+    {
+      question: "¿Es la terapia solo para problemas mentales graves?",
+      answer: "No, la terapia es para cualquier persona que quiera mejorar su bienestar emocional, independientemente de si tiene un diagnóstico específico o no. Muchas personas van a terapia para manejar el estrés, mejorar sus relaciones, o simplemente para tener un espacio donde puedan hablar de sus pensamientos y sentimientos sin juicio."
+    }
+  ];
+
+    // Generar schemas
+  const businessSchema = getLocalBusinessSchema();
+  const siteSchema = getWebSiteSchema();
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Inicio", item: "/" }
+  ]);
+  const faqSchema = getFAQSchema(faqs);
+
   return (
+    <>
+      {/* Inyección de schemas */}
+      <SchemaMarkup type="LocalBusiness" schema={businessSchema} />
+      <SchemaMarkup type="WebSite" schema={siteSchema} />
+      <SchemaMarkup type="BreadcrumbList" schema={breadcrumbSchema} />
+      {faqSchema && <SchemaMarkup type="FAQPage" schema={faqSchema} />}
     <div className="flex flex-col min-h-screen">
       <main className="grow">
         
@@ -32,7 +92,7 @@ export default async function HomePage() {
         <section className="bg-blue-50 py-20 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
-              Encuentra tu Paz y Bienestar en la Ciudad de México
+              Psicólogo en Coyoacán, CDMX <br /> Terapia para Ansiedad y Depresión <br /> Terapia de pareja.
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
               Psicoterapia profesional enfocada en Ansiedad, Depresión, Estrés y Desarrollo Personal.<br/>Tu camino hacia el equilibrio emocional comienza aquí.
@@ -63,17 +123,17 @@ export default async function HomePage() {
               {/* Card 1 */}
               <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
                 <h3 className="text-xl font-semibold text-blue-300 mb-3">Manejo de Ansiedad</h3>
-                <p className="text-blue-100">Estrategias efectivas para reducir el pánico y recuperar el control de tu vida diaria.</p>
+                <p className="text-blue-100">La ansiedad no es sólo sentir nervios. Ni sólo se arregla tratando de relajarse. En terapia solucionamos este malestar desde el conocimiento de tu cuerpo, sus reacciones a tus pensamientos y el control de las emociones.</p>
               </div>
               {/* Card 2 */}
               <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
                 <h3 className="text-xl font-semibold text-blue-300 mb-3">Terapia de Pareja</h3>
-                <p className="text-blue-100">Mejora la comunicación y fortalece la conexión emocional con tu pareja.</p>
+                <p className="text-blue-100">El mejor viaje de la vida, es el que hacemos a lado de la persona que amamos. Pero la vida es muy larga y las personas somos muy cambiantes. En este tipo de terapia, nosotros aprendemos a comunicarnos de mejor manera con nuestra pareja, a compartir, a aceptar y respetar las diferentes formas que tenemos de ser. Y las convertimos en las bases para que nosotros podamos disfrutar cada paso de este viaje juntos.</p>
               </div>
               {/* Card 3 */}
               <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
                 <h3 className="text-xl font-semibold text-blue-300 mb-3">Superación de la Depresión</h3>
-                <p className="text-blue-100">Te acompañamos a encontrar motivación y a recuperar el sentido de propósito.</p>
+                <p className="text-blue-100">No es tu culpa sentirte deprimido, ni es una moda, ni siquiera es una situación que busques, la depresión es una enfermedad que llega en los momentos de la vida que no encontramos para donde dar un paso adelante. O que no confiamos en que lo haremos. En terapia conmigo, reforzaremos la parte de autoestima que te está deteniendo para avanzar y reestructuraremos tu forma de percibir, identificar y traducir el mundo. Para que sea dueño de lo que sientes y cómo lo vives.</p>
               </div>
             </div>
           </div>
@@ -119,6 +179,14 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+        <section className="bg-gray-50 py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h3 className="text-2xl font-bold text-blue-600 mb-4">Sobre mi</h3>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 ">Soy Arturo</h2>
+            <p className="text-gray-700">Psicólogo de profesión, a lo largo de mi vida profesional he trabajado con varios pacientes que buscan solución a sus problemas. Y definitivamente, les he comentado que la solución a sus problemas no es la terapia psicológica, pero lo que si es, es una herramienta para que no todo lo conviertan en problema y para que, lo que si es problema, comprendan que ellos mismos son la solución, sólo que no han encontrado las herramientas que están dentro de ellos mismos. Esa, es la clave del éxito, no ir a terapia a solucionar el problema, sino a conocerse en totalidad, para que sean ustedes la clave de su éxito.</p>
+            <p className='text-gray-700'>¿Estás listo para esforzarte por ti?</p>
+          </div>
+        </section>
 
         {/* Sección 4: Llamado a la Acción Final (Testimonios/Contacto) */}
         <section className="bg-blue-600 text-white py-16 text-center">
@@ -133,8 +201,20 @@ export default async function HomePage() {
             </Link>
           </div>
         </section>
-
-      </main>
+        <section>
+          <div className="container mx-auto px-4 text-center">
+               <h2 className="text-2xl font-bold text-center text-gray-400 m-8">Preguntas Frecuentes</h2>
+                <h3 className='text-lg text-white font-semibold mb-5 mt-2'>¿Tengo que estar muy mal para ir a terapia?</h3>
+                <p>No, la terapia no es solo para personas que están pasando por una crisis. Muchas personas van a terapia para mejorar su bienestar emocional, aprender habilidades de afrontamiento, o simplemente para tener un espacio seguro donde hablar de sus pensamientos y sentimientos.</p>
+                <h3 className='text-lg text-white font-semibold mb-5 mt-2'>¿Cuánto tiempo dura la terapia?</h3>
+                <p>La duración de la terapia varía según las necesidades individuales. Algunas personas pueden beneficiarse de unas pocas sesiones, mientras que otras pueden necesitar un compromiso a largo plazo. Lo importante es que te sientas cómodo y que la terapia esté ayudando a alcanzar tus objetivos.</p>
+                <h3 className='text-lg text-white font-semibold mb-5 mt-2'>¿Es la terapia solo para problemas mentales graves?</h3>
+                <p>No, la terapia es para cualquier persona que quiera mejorar su bienestar emocional, independientemente de si tiene un diagnóstico específico o no. Muchas personas van a terapia para manejar el estrés, mejorar sus relaciones, o simplemente para tener un espacio donde puedan hablar de sus pensamientos y sentimientos sin juicio.</p>
+      
+          </div>
+        </section>
+       </main>
     </div>
+  </>
   );
 }
