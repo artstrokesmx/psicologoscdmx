@@ -92,8 +92,9 @@ export default async function HomePage() {
         <section className="bg-blue-50 py-20 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
-              Psicólogo en Coyoacán, CDMX <br /> Terapia para Ansiedad y Depresión <br /> Terapia de pareja.
+              Psicólogo en Coyoacán, CDMX y Terapia Online en México
             </h1>
+            <h2>Terapia para Ansiedad, Depresión y Pareja</h2>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
               Psicoterapia profesional enfocada en Ansiedad, Depresión, Estrés y Desarrollo Personal.<br/>Tu camino hacia el equilibrio emocional comienza aquí.
             </p>
@@ -182,7 +183,7 @@ export default async function HomePage() {
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4 text-center">
             <h3 className="text-2xl font-bold text-blue-600 mb-4">Sobre mi</h3>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 ">Soy Arturo</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 ">Sobre Arturo – Psicólogo Clínico en CDMX</h2>
             <p className="text-gray-700">Psicólogo de profesión, a lo largo de mi vida profesional he trabajado con varios pacientes que buscan solución a sus problemas. Y definitivamente, les he comentado que la solución a sus problemas no es la terapia psicológica, pero lo que si es, es una herramienta para que no todo lo conviertan en problema y para que, lo que si es problema, comprendan que ellos mismos son la solución, sólo que no han encontrado las herramientas que están dentro de ellos mismos. Esa, es la clave del éxito, no ir a terapia a solucionar el problema, sino a conocerse en totalidad, para que sean ustedes la clave de su éxito.</p>
             <p className='text-gray-700'>¿Estás listo para esforzarte por ti?</p>
           </div>
