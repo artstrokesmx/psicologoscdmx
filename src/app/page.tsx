@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import SchemaMarkup from '@/components/comunes/SchemaMarkup';
 import { getLocalBusinessSchema, getWebSiteSchema, getBreadcrumbSchema, getFAQSchema } from '@/components/comunes/GeneradorDeSchema';
+import { getHomeCombinedSchema } from '@/components/comunes/GeneradorDeSchema';
+import { FAQ } from '@/lib/types';
 
 export const metadata: Metadata = {
   title: 'Psicólogo en Coyoacán, CDMX | Terapia para Ansiedad y Pareja',
@@ -49,13 +51,15 @@ interface Post {
 export const dynamic = 'force-static';
 
 export default async function HomePage() {
+
+  
   
   // 1. Cargar datos del blog (limitamos a 3 para mostrar en la portada)
   // Nota: Usaremos una consulta GROQ que filtre y ordene más eficientemente después.
   const allPosts: Post[] = await getBlogPosts();
   const featuredPosts = allPosts.slice(0, 3); // Tomamos los 3 más recientes
 
-  const faqs = [
+  const faqs: FAQ[] = [
     {
       question: "¿Tengo que estar muy mal para ir a terapia?",
       answer: "No, la terapia no es solo para personas que están pasando por una crisis. Muchas personas van a terapia para mejorar su bienestar emocional, aprender habilidades de afrontamiento, o simplemente para tener un espacio seguro donde hablar de sus pensamientos y sentimientos."
@@ -71,20 +75,26 @@ export default async function HomePage() {
   ];
 
     // Generar schemas
-  const businessSchema = getLocalBusinessSchema();
-  const siteSchema = getWebSiteSchema();
+    const homeSchema = getHomeCombinedSchema(faqs);
+  //const businessSchema = getLocalBusinessSchema();
+  //const siteSchema = getWebSiteSchema();
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Inicio", item: "/" }
   ]);
-  const faqSchema = getFAQSchema(faqs);
+  //const faqSchema = getFAQSchema(faqs);
 
   return (
-    <>
-      {/* Inyección de schemas */}
-      <SchemaMarkup type="LocalBusiness" schema={businessSchema} />
-      <SchemaMarkup type="WebSite" schema={siteSchema} />
-      <SchemaMarkup type="BreadcrumbList" schema={breadcrumbSchema} />
-      {faqSchema && <SchemaMarkup type="FAQPage" schema={faqSchema} />}
+    <>  
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      </head>
     <div className="flex flex-col min-h-screen">
       <main className="grow">
         

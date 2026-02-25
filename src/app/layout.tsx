@@ -44,6 +44,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationSchema = {
+    "@context": "https://schema.org",
+    "@id": `${CONFIG_DEL_SITIO.url}#organization`,
     "name": CONFIG_DEL_SITIO.name,
     "url": "https://artstrokesmx.github.io/psicologoscdmx/", // 👈 URL REAL
     "logo": "/logonew.svg", // 👈 Reemplaza con tu logo

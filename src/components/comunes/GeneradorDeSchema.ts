@@ -33,7 +33,7 @@ export const getLocalBusinessSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Psychologist",
     // "@type": ["PsychologicalTreatment", "LocalBusiness", "HealthAndBeautyBusiness"],
-    "id":`${BASE_ID}/#localbusiness`,
+    "@id":`${BASE_ID}/#localbusiness`,
     "name": CONFIG_DEL_SITIO.name,
     "image": CONFIG_DEL_SITIO.logo,
     "description": CONFIG_DEL_SITIO.description,
@@ -51,7 +51,7 @@ export const getLocalBusinessSchema = () => ({
 export const getWebSiteSchema = () => ({
   "@context": "https://schema.org",
     "@type" : "WebSite",
-    "id":`${BASE_ID}/#website`,
+    "@id":`${BASE_ID}/#website`,
     "url": BASE_ID,
     "name" : CONFIG_DEL_SITIO.name,
     "description": CONFIG_DEL_SITIO.description,
@@ -114,7 +114,8 @@ export const getBlogPostingSchema = (post: BlogPostDetail, slug: string) => {
   "author": {
     "@type": "Person",
     "name": post.author?.name || "Psic. Arturo Miranda",
-    "url": post.author?.url || CONFIG_DEL_SITIO.sameAs[0]
+    "url": post.author?.url || CONFIG_DEL_SITIO.sameAs[0],
+    "description": "Psicólogo en CDMX especializado en psicoterapia para adultos, adolescentes y terapia en pareja. Especialista en Ansiedad, depresión y trabajo con personas de capacidades distintas, separaciones, divorcios y duelos. Enfoque en Terapia Cognitivo Conductual, Terapia de Aceptación y Compromiso, Mindfulness y Psicoterapia Integrativa. Comprometido con el bienestar emocional y mental de mis pacientes.",
   },
   "publisher": {
     "@type": "Organization",
@@ -183,5 +184,77 @@ export const getHowToSchema = (post: BlogPostDetail) => {
         "text": step.stepText // Mapeamos stepText -> text para Google
       }]
     }))
+  };
+};
+
+// En tu Generador de Schema
+export const getHomeCombinedSchema = (faqs?: FAQ[]) => {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      getWebSiteSchema(),
+      {
+        ...getLocalBusinessSchema(),
+        "@id": `${BASE_ID}/#localbusiness`, // Corregimos el @id
+        "knowsAbout": [
+          "Psicoterapia Cognitivo Conductual",
+          "Terapia de Pareja en CDMX",
+          "Tratamiento de Ansiedad y Estrés",
+          "Psicología Clínica",
+          "Tratamiento para depresión"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de Psicoterapia",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name":  "Terapia Individual para Adultos" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Terapia de Pareja"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Terapia para Adolescentes"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Terapia Familiar"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Terapia de Grupo"
+              }
+            }
+          ]
+        }
+      },
+      faqs && faqs.length > 0 ? {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      } : null
+    ].filter(Boolean) // Esto quita el "null" si no hay FAQs
   };
 };
