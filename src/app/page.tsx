@@ -99,21 +99,32 @@ export default async function HomePage() {
       <main className="grow">
         
         {/* Sección 1: Hero Principal (Con llamado a la acción CLARO) */}
-        <section className="bg-blue-50 py-20 text-center">
-          <div className="container mx-auto px-4">
+        <section className="relative py-24 text-center overflow-hidden">
+          <div 
+    className="absolute inset-0 z-0"
+    style={{
+     backgroundImage: `url('/imagenes/hero.webp')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+  >
+    {/* Capa de color para dar contraste al texto (puedes ajustar el 0.8 a tu gusto) */}
+   // <div className="absolute inset-0 bg-white/95 bg-linear-to-b from-white/90 to-blue-50/80"></div>
+  </div>
+          <div className="container mx-auto px-4 z-10 relative">
             <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
-              Psicólogo en Coyoacán, CDMX y Terapia Online en México
+              Psicólogo en Coyoacán y Terapia en línea
             </h1>
-            <h2>Terapia para Ansiedad, Depresión y Pareja</h2>
+            <h2 className='text-3xl text-blue-700'>Sanar la Ansiedad, superar la Depresión y fortalecer tu Relación de Pareja.</h2>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Psicoterapia profesional enfocada en Ansiedad, Depresión, Estrés y Desarrollo Personal.<br/>Tu camino hacia el equilibrio emocional comienza aquí.
+              No tienes que cargar con todo tú solo; te ayudo a redescubrir tus propias herramientas para retomar el control de tu vida.<br /><span className='font-bold'>Porque ir a terapia no es por estar "mal", es por querer estar mejor.</span> Te acompaño en un proceso de autoconocimiento para convertir tus retos en bienestar emocional.
             </p>
             <div className="flex flex-col space-x-4 space-y-1 justify-center md:flex-row md:space-y-0">
               <Link 
                 href="https://wa.me/525548549863?text=Hola,%20quiero%20%20más%20información%20de%20terapia" 
                 className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 shadow-lg"
               >
-                Agenda tu Primera Sesión
+                Da el primer paso hoy.
               </Link>
               <Link 
                 href="/servicios" 
@@ -193,7 +204,7 @@ export default async function HomePage() {
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4 text-center">
             <h3 className="text-2xl font-bold text-blue-600 mb-4">Sobre mi</h3>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 ">Sobre Arturo – Psicólogo Clínico en CDMX</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 ">Soy Arturo – Psicólogo Clínico en CDMX</h2>
             <p className="text-gray-700">Psicólogo de profesión, a lo largo de mi vida profesional he trabajado con varios pacientes que buscan solución a sus problemas. Y definitivamente, les he comentado que la solución a sus problemas no es la terapia psicológica, pero lo que si es, es una herramienta para que no todo lo conviertan en problema y para que, lo que si es problema, comprendan que ellos mismos son la solución, sólo que no han encontrado las herramientas que están dentro de ellos mismos. Esa, es la clave del éxito, no ir a terapia a solucionar el problema, sino a conocerse en totalidad, para que sean ustedes la clave de su éxito.</p>
             <p className='text-gray-700'>¿Estás listo para esforzarte por ti?</p>
           </div>
